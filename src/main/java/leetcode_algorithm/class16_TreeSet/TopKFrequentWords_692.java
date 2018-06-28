@@ -23,6 +23,7 @@ Integer
 
  */
 
+
 public class TopKFrequentWords_692 {
     public List<String> topKFrequent(String[] words, int k) {
         Map<String, Integer> count = new HashMap<>();
@@ -72,12 +73,71 @@ public class TopKFrequentWords_692 {
         return res;
     }
 
-    // treeset 要对key都排序。所以要建立一个class。但是key又是不允许改变的。这就很蛋疼。
+    // treeset 要对key都排序。所以要建立一个class。但是key又是不允许改变的。这就很蛋疼。可以每次删掉一个记录，再更新一个记录。
+    // 这个方法没有写比较器。不能用
+    public List<String> topKFrequent4(String[] words, int k) {
+        List<String> res = new ArrayList<>();
+        Map<String, Integer> map = new HashMap<>();
+        TreeSet<Map.Entry<String, Integer>> set =  new TreeSet<>();
+        for(String s : words) {
+            map.put(s, map.getOrDefault(s, 0) + 1);
+        }
+        for(Map.Entry<String, Integer> pair : map.entrySet()) {
+            set.add(pair);
+            if (set.size() > k) {
+                set.pollFirst();
+            }
+        }
+        return res;
+    }
+
+    //用treeset。里面的范性要实现compararable<T>.
+    public List<String> topKFrequent5(String[] words, int k) {
+        class MyPair implements Comparable<MyPair>{
+            private String name;
+            private int count;
+
+            public MyPair(String name, int count) {
+                this.name = name;
+                this.count = count;
+            }
+
+            @Override
+            public int compareTo(MyPair myPair) {
+                // 当前的其实是this。如果要把次数少的放在上面，那么应该用当前 - 传进来的
+                if (myPair.count != this.count) {
+                    return this.count - myPair.count;
+                }
+                else{
+                    return this.name.compareTo(myPair.name);
+                }
+            }
+        }
+
+        List<String> res = new ArrayList<>();
+        Map<String, Integer> map = new HashMap<>();
+        TreeSet<MyPair> treeSet =  new TreeSet<>();
+        for(String s : words) {
+            map.put(s, map.getOrDefault(s, 0) + 1);
+        }
+        for(String string : map.keySet()) {
+            treeSet.add(new MyPair(string, map.get(string)));
+            if (treeSet.size() > k) {
+                treeSet.pollFirst();
+            }
+        }
+        Iterator<MyPair> myPairs = treeSet.iterator();
+        while(myPairs.hasNext()) {
+            res.add(myPairs.next().name);
+        }
+        Collections.reverse(res);
+        return res;
+    }
 
     public static void main(String[] args) {
         TopKFrequentWords_692 topKFrequentWords_692 = new TopKFrequentWords_692();
-        String[] input = {"the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"};
-        List<String> res = topKFrequentWords_692.topKFrequent3(input, 4);
+        String[] input = {"the", "the", "the", "the", "is", "is", "is", "sunny", "sunny", "day"};
+        List<String> res = topKFrequentWords_692.topKFrequent5(input, 4);
         System.out.println(res);
     }
 }

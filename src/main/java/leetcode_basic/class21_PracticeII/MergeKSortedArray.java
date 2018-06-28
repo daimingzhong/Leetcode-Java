@@ -24,12 +24,12 @@ import java.util.PriorityQueue;
 public class MergeKSortedArray {
 
     public int[] merge(int[][] arrayOfArrays) {
-        // mycomparator 告诉pq，怎么比，比什么。这里比的是value
-        PriorityQueue<Entry> minHeap = new PriorityQueue<Entry>(11, new MyComparator());
+        PriorityQueue<Entry> minHeap = new PriorityQueue<Entry>((Entry e1, Entry e2) -> (e1.value - e2.value));
         int length = 0;
         for (int i = 0; i < arrayOfArrays.length; i++) {
             int[] array = arrayOfArrays[i];
             length += array.length;
+            // 先把第一列全都加进去
             if (array.length != 0) {
                 minHeap.offer(new Entry(i, 0, array[0]));
             }
@@ -48,7 +48,7 @@ public class MergeKSortedArray {
         return result;
     }
 
-
+    //PriorityQueue<Entry> minHeap = new PriorityQueue<Entry>(11, new MyComparator());
     static class MyComparator implements Comparator<Entry> {
         @Override
         public int compare(Entry e1, Entry e2) {

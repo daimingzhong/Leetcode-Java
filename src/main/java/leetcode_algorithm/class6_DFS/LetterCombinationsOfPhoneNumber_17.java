@@ -43,9 +43,7 @@ public class LetterCombinationsOfPhoneNumber_17 {
                 sb.append(j);
                 helper(input, layer + 1, result, sb, used);
                 sb.deleteCharAt(sb.length() - 1);
-//                used[i]--;
             }
-//            used[i]--;
         }
     }
 
@@ -57,29 +55,30 @@ public class LetterCombinationsOfPhoneNumber_17 {
     public static List<String> letterCombinations2(String digits) {
         String digitletter[] = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
         List<String> result = new ArrayList<String>();
-        if (digits.length()==0) {
+        if (digits.length() == 0) {
             return result;
         }
         result.add("");
-        for (int i=0; i<digits.length(); i++)
-            result = combine(digitletter[digits.charAt(i)-'0'],result);
+        for (int i = 0; i < digits.length(); i++) {
+            result = combine(digitletter[digits.charAt(i) - '0'], result);
+        }
         return result;
     }
 
-    public static List<String> combine(String digit, List<String> l) {
+    public static List<String> combine(String digit, List<String> res) {
         List<String> result = new ArrayList<String>();
-        for (int i=0; i<digit.length(); i++)
-            for (String x : l)
-                result.add(x+digit.charAt(i));
+        for (int i = 0; i < digit.length(); i++)
+            for (String x : res) {
+                result.add(x + digit.charAt(i));
+            }
         return result;
     }
 
     public static void main(String[] args) {
         LetterCombinationsOfPhoneNumber_17 lc = new LetterCombinationsOfPhoneNumber_17();
-        List<String> result = lc.letterCombinations("23");
+        List<String> result = lc.letterCombinations2("23");
         for(String s : result) {
             System.out.println(s);
         }
-//        System.out.println((char)(3*2 + 'a'));
     }
 }
