@@ -7,7 +7,7 @@ import java.util.Set;
  * Created by Dai on 2016/12/11.
  * Dictionary: {“bob”, “cat”, “rob”}
  * Word: “ro bob” return false
- * Word: "rob cat bob" return true since it can be composed by "rob", "cat", "bob"
+ * Word: "robcatbob" return true since it can be composed by "rob", "cat", "bob"
  */
 public class DictionaryWordI {
     public boolean canBreak(String input, String[] dict) {

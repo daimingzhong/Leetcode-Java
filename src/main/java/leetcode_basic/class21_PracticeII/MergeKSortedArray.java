@@ -42,6 +42,7 @@ public class MergeKSortedArray {
             if (tmp.y + 1 < arrayOfArrays[tmp.x].length) {
                 tmp.y++;
                 tmp.value = arrayOfArrays[tmp.x][tmp.y];
+                // 放入即将要比较的obj
                 minHeap.offer(tmp);
             }
         }
