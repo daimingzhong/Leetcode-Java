@@ -5,42 +5,42 @@ import java.util.*;
 /**
  * Given two words (beginWord and endWord), and a dictionary's word list,
  * find all shortest transformation sequence(s) from beginWord to endWord, such that:
-要找出所有最短的。
-
- Only one letter can be changed at a time
- Each transformed word must exist in the word list. Note that beginWord is not a transformed word.
- For example,
-
- Given:
- beginWord = "hit"
- endWord = "cog"
- wordList = ["hot","dot","dog","lot","log","cog"]
-
- Return
- [
- ["hit","hot","dot","dog","cog"],
- ["hit","hot","lot","log","cog"]
- ]
-
- BFS + DFS
-
- 无向图 -> BFS -> 树 -> DFS -> 结果
-
- hit -> hot -> dot -> dog - cog
- -> lot -> log - cog
-
- map : hot (hit)
- dot (hot)
- lot (hot)
- dog (dot)
- log (lot)
- cog (dog,log)
-
- time : O(V + E) * wordList(max(length))  不确定
- O(n ^ 2)
- space : O(n)
-
- 把find neightbor抽出来变成函数比较好
+ * 要找出所有最短的。
+ * <p>
+ * Only one letter can be changed at a time
+ * Each transformed word must exist in the word list. Note that beginWord is not a transformed word.
+ * For example,
+ * <p>
+ * Given:
+ * beginWord = "hit"
+ * endWord = "cog"
+ * wordList = ["hot","dot","dog","lot","log","cog"]
+ * <p>
+ * Return
+ * [
+ * ["hit","hot","dot","dog","cog"],
+ * ["hit","hot","lot","log","cog"]
+ * ]
+ * <p>
+ * BFS + DFS
+ * <p>
+ * 无向图 -> BFS -> 树 -> DFS -> 结果
+ * <p>
+ * hit -> hot -> dot -> dog - cog
+ * -> lot -> log - cog
+ * <p>
+ * map : hot (hit)
+ * dot (hot)
+ * lot (hot)
+ * dog (dot)
+ * log (lot)
+ * cog (dog,log)
+ * <p>
+ * time : O(V + E) * wordList(max(length))  不确定
+ * O(n ^ 2)
+ * space : O(n)
+ * <p>
+ * 把find neightbor抽出来变成函数比较好
  */
 
 public class WordLadderII_126 {
@@ -117,20 +117,20 @@ public class WordLadderII_126 {
         list.remove(0);
     }
 
-/*
-Given:
-beginWord = "hit"
-endWord = "cog"
-wordList = ["hot","dot","dog","lot","log","cog"]
+    /*
+    Given:
+    beginWord = "hit"
+    endWord = "cog"
+    wordList = ["hot","dot","dog","lot","log","cog"]
 
-Return
-["hit","hot","dot","dog","cog"], ["hit","hot","lot","log","cog"]
- */
+    Return
+    ["hit","hot","dot","dog","cog"], ["hit","hot","lot","log","cog"]
+     */
     public static void main(String[] args) {
         WordLadderII_126 wordLadderII_126 = new WordLadderII_126();
         String beginWord = "hit";
         String endWord = "cog";
-        String[] wordList = {"hot","dot","dog","lot","log","cog"};
+        String[] wordList = {"hot", "dot", "dog", "lot", "log", "cog"};
         List<List<String>> res = wordLadderII_126.findLadders(beginWord, endWord, new ArrayList<String>(Arrays.asList(wordList)));
         for (List<String> list : res) {
             System.out.println(list);

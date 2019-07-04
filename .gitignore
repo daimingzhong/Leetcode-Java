@@ -1,7 +1,7 @@
 .idea/
+leetcode.iml
 
 /src/main/java/lintcode/
 /src/main/java/OA/
-
+out/
 target/
-leetcode.iml
